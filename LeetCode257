@@ -1,0 +1,52 @@
+//URL: https://leetcode.com/problems/binary-tree-paths/
+
+//Solution
+
+class Solution {
+  public List<String> binaryTreePaths(TreeNode root) {
+
+    //Init the result list
+    //Hold all of the root to leaf path
+    List<String> ans = new ArrayList<>();
+
+    //start the depth-first search
+    //dfs is helper function, and StringBuilder will construct path strings as tree is traversed
+    dfs(root, new StringBuilder(), ans);
+
+    //return result
+    return ans;
+  }
+
+  private void dfs(TreeNode root, StringBuilder sb, List<String> ans) {
+
+    //If root is null, then function returns immediately
+    if (root == null)
+      return;
+
+    //If current node is leaf (right and left children are null), appends node's value to STrinBuilder, and convert to string and add to result list and return immediately to avoid processing
+    if (root.left == null && root.right == null) {
+      ans.add(sb.append(root.val).toString());
+      return;
+    }
+
+    // Saves current length of stringbuilder to reset later
+    final int length = sb.length();
+
+    // Traverse the left subtree by appending the current node followed by --> to stringbuilder and calls DFS on the left child
+    dfs(root.left, sb.append(root.val).append("->"), ans);
+
+    //Reset the StringBuilder to original length before starting on right path
+    sb.setLength(length);
+
+    //Works the same way as left sub tree above
+    dfs(root.right, sb.append(root.val).append("->"), ans);
+
+    //reset stringbuilder for future calls 
+    sb.setLength(length);
+  }
+}
+
+//Summary
+//The binaryTreePaths function finds all paths from the root to the leaf nodes of a binary tree. 
+//It uses depth-first search to traverse the tree, building path strings as it goes. When it reaches a leaf node, it adds the complete path to the result list. 
+//The StringBuilder is used to efficiently manage the path strings, resetting to the appropriate length after each recursive call to ensure paths are built correctly without extra characters from previous paths.
