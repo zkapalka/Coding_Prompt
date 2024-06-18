@@ -1,0 +1,63 @@
+//URL: https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+_________________________
+//SOLUTION 1
+//Set is a data structure in java that does not allow duplicates, so, it will remove all duplicates when moving from array to set.
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+
+//Returns if array is null or empty
+      if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+//Init Set
+        Set<Integer> uniqueSet = new HashSet<>();
+
+// To keep track of the position of where the next unique elemenet should be written to the nums array
+        int writeIndex = 0;
+
+//Enhanced for loop
+        for (int num : nums) {
+
+//If it is not in the set, we add to set and write at currenet writeIndex and then increment 
+            if (!uniqueSet.contains(num)) {
+                uniqueSet.add(num);
+                nums[writeIndex] = num;
+                writeIndex++;
+            }
+        }
+
+        return writeIndex;
+    }
+}
+_________________________
+//Solution 2
+//Not using Set 
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+
+//Return if array is null or empty
+    if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+// writeIndex set to 1 because first element is always unique in a sorted array
+//readIndex starts from 1 and go thru array
+        int writeIndex = 1;  // Start from the second element
+
+        for (int readIndex = 1; readIndex < nums.length; readIndex++) {
+
+//for each element at readIndex, we check if it is different from the previous element at readIndex - 1
+//If different, we found an unique element and write this at writeIndex and increment it
+            if (nums[readIndex] != nums[readIndex - 1]) {
+                nums[writeIndex] = nums[readIndex];
+                writeIndex++;
+            }
+        }
+
+        return writeIndex;
+    }
+}
