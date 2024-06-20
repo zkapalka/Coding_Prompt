@@ -1,0 +1,31 @@
+//URL: https://leetcode.com/problems/reverse-string/
+
+//Solution:
+
+class Solution {
+    public void reverseString(char[] s) {
+
+    //Set up the pointers as int since the index are ints 
+    //start of array
+    int l = 0;
+
+    //end of array
+    int r = s.length - 1;
+
+// While l is less than r, the loop will continue
+    while (l < r) {
+
+      //create a temp variable to store the first char
+      char temp = s[l];
+
+      //increment l and store the last character
+      s[l++] = s[r];
+
+      //decrease r and store temp
+      s[r--] = temp;
+
+      //loop and flip the chars until loop exits
+    }
+        
+    }
+}
