@@ -1,0 +1,37 @@
+//URL: https://leetcode.com/problems/merge-sorted-array/
+
+//Solution
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        // Initialize pointers for nums1, nums2 and the end of merged array
+        int i = m - 1; // pointer for the last element in the valid part of nums1
+        int j = n - 1; // pointer for the last element in nums2
+        int k = m + n - 1; // pointer for the last position in nums1
+        
+        // Merge nums1 and nums2 from the end
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[k--] = nums1[i--]; // place nums1[i] at the end and move pointers
+            } else {
+                nums1[k--] = nums2[j--]; // place nums2[j] at the end and move pointers
+            }
+        }
+        
+        // If there are remaining elements in nums2, copy them
+        while (j >= 0) {
+            nums1[k--] = nums2[j--];
+        }
+        
+        // No need to copy remaining elements from nums1 since they are already in place
+    }
+}
+
+/*
+
+This approach merges the two array in reverse using two pointers starting at the back of each array and then comparing the two numbers between the array and putting down first whatever is bigger and then decrementing. The problem 
+of numbers being handled if there are two same numbers is already handled by the if/else, and since the if is set to only be true if nums1 is larger than nums2, any nums 2 that is larger or equal to nums1 will always be picked up by 
+the else statement therefore we don't have to worry about numbers being out of order. 
+
+
+*/
