@@ -1,0 +1,26 @@
+//URL: https://leetcode.com/problems/unique-email-addresses/description/
+
+//Solution: 
+
+class Solution {
+  public int numUniqueEmails(String[] emails) {
+
+// Set up a new variable using Set, set is used because Set only allows for unique values, it doesn't accept any duplicate values
+    Set<String> normalized = new HashSet<>();
+
+// Start the for loop
+    for (final String email : emails) {
+
+// The email is broken in two separate parts using @ as the delimiter, and the domain is put into 1 index and the local is put in 0 index
+      String[] parts = email.split("@");
+
+// Use a new variable called local to hold the string and using delimiter + to remove all characters after + if there are any
+      String[] local = parts[0].split("\\+");
+
+// Use built in method to add local index 0 and replace any periods in the index with no character if there is any period, and then add the @ and the domain that was rmoved in the first line of the for loop
+      normalized.add(local[0].replace(".", "") + "@" + parts[1]);
+    }
+
+    return normalized.size();
+  }
+}
