@@ -1,0 +1,26 @@
+//URL: https://leetcode.com/problems/two-sum/
+
+//Solution using O n complexity
+
+class Solution {
+  public int[] twoSum(int[] nums, int target) {
+
+    //Create a Hasmap, it allows you to store the number from the array and their index as the corresponding value
+    Map<Integer, Integer> numToIndex = new HashMap<>();
+
+// This iterates over the array, it goes the full array length
+    for (int i = 0; i < nums.length; ++i) {
+
+// For each element in the array, it check to see if the complement exists in the map, if it exist, it means that there's a previous number in the map
+      if (numToIndex.containsKey(target - nums[i]))
+        //Returns the array with the indexes of the two numbers, the index of the complent and the current i
+        return new int[] {numToIndex.get(target - nums[i]), i};
+
+//If the complement doesn't exist, the current number and its index is added to the map
+      numToIndex.put(nums[i], i);
+    }
+
+//If the loops completes and there's no two numbers to sum the target, this is meant as a safeguard 
+    throw new IllegalArgumentException();
+  }
+}
