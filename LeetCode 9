@@ -1,0 +1,56 @@
+//URL: https://leetcode.com/problems/palindrome-number/
+
+//SOLUTION this compares without changing the integer to a string which cut down on time
+
+class Solution {
+
+//Define method that return true or false and accept an integer and x is its parameter
+  public boolean isPalindrome(int x) {
+
+//This is a negative check since a negative number can never be a palindrome since a negative number flipped would have the minus at the end
+    if (x < 0)
+      return false;
+
+
+// This set up a long variable called reversed. Reversed will hold the reversed number
+    long reversed = 0;
+// y is integer set to x, this helps to construct the reversed number
+    int y = x;
+
+
+// Runs while y is greater than 0
+    while (y > 0) {
+
+// Inside the loop, 
+//reversed = reversed * 10 + y % 10 extracts the last digit of y (using y % 10) and appends it to reversed.
+//y /= 10 removes the last digit from y by performing integer division by 10.
+      reversed = reversed * 10 + y % 10;
+      y /= 10;
+    }
+
+//After the loop completes, the method returns true if the reversed number equals the original number x. Otherwise, it returns false.
+    return reversed == x;
+  }
+}
+
+
+// EXAMPLE
+
+Example Walkthrough
+Let's take an example, x = 121:
+
+1. x is not negative, so the check if (x < 0) is bypassed.
+2. reversed is initialized to 0 and y is set to 121.
+3. In the first iteration of the loop:
+    reversed = 0 * 10 + 121 % 10 => reversed = 1
+    y = 121 / 10 => y = 12
+
+4. In the second iteration:
+    reversed = 1 * 10 + 12 % 10 => reversed = 12
+    y = 12 / 10 => y = 1
+
+5. In the third iteration:
+    reversed = 12 * 10 + 1 % 10 => reversed = 121
+    y = 1 / 10 => y = 0 (loop ends)
+
+6. Finally, reversed (121) is compared with x (121), and since they are equal, the method returns true.
