@@ -1,0 +1,25 @@
+//URL: https://walkccc.me/LeetCode/problems/21/#__tabbed_1_2
+
+//SOLUTION
+
+class Solution {
+
+//Defines a public method called mergeTwoLists, that takes two listNode objects called list1 and list 2, and this returns a listNode, which is the head of the merged sorted linked list
+  public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+//This is a check to check if either list if null, if either list is null, this will return the non null list, this is our fail-safe.
+    if (list1 == null || list2 == null)
+      return list1 == null ? list2 : list1;
+
+//Check to see if list1 has the smaller head. If list1 is bigger than list2, it will swap list1 and list2 by using temp as a place-holder while the swap occurs.
+    if (list1.val > list2.val) {
+      ListNode temp = list1;
+      list1 = list2;
+      list2 = temp;
+    }
+
+//This uses the next pointer for the current list 1 node to the result of keeping calling mergeTwoLists with list1.next and list 2, this keep merging list1 and list2 starting from the nexts node of list1
+    list1.next = mergeTwoLists(list1.next, list2);
+    return list1;
+  }
+}
