@@ -1,0 +1,27 @@
+//URL: https://leetcode.com/problems/plus-one/submissions/1318015816/
+
+//SOLUTION
+
+class Solution {
+  public int[] plusOne(int[] digits) {
+
+//Start from the end of the array from right to left. 
+    for (int i = digits.length - 1; i >= 0; i--) {
+//Check to make sure that all digits are less than 9
+      if (digits[i] < 9) {
+//Increase the last index by one
+        ++digits[i];
+        return digits;
+      }
+
+//If the current digit is 9, set the index to 0 and then continue the loop because 9 + 1 = 10 so there is a carry over
+      digits[i] = 0;
+    }
+
+//This create a new array by making an additional index to account for carryover
+    int[] ans = new int[digits.length + 1];
+//Set the first index to 1 so if the array is 9, 99, or 999, it will become 10, 100, or 1000 and so on.
+    ans[0] = 1;
+    return ans;
+  }
+}
