@@ -1,0 +1,19 @@
+//URL: https://leetcode.com/problems/remove-element/
+
+//SOLUTION
+
+class Solution {
+  public int removeElement(int[] nums, int val) {
+// init the pointer to keep track of position where the next non-val element is
+    int i = 0;
+
+//use a for loop to go thru the array
+    for (final int num : nums)
+//If item in array is NOT the same as the value to be removed, this is assigned to the new array and incrementing
+      if (num != val)
+        nums[i++] = num;
+
+//Return the new length
+    return i;
+  }
+}
