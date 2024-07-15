@@ -1,0 +1,32 @@
+//URL: https://leetcode.com/problems/valid-parentheses/solutions/3399077/easy-solutions-in-java-python-and-c-look-at-once-with-exaplanation/
+
+//SOLUTION
+class Solution {
+  public boolean isValid(String s) {
+
+// Set up a Deque used as a stack to track of closing brackets that are expected to be seen
+    Deque<Character> stack = new ArrayDeque<>();
+
+//Iterate thru the String using built in method to convert string into an array of characters
+    for (final char c : s.toCharArray()) {
+
+// If c is an opening bracket (, {, or [, we push the corresponding closing bracket ), }, or ] onto the stack. This way, we remember which closing bracket we expect to see next.
+      if (c == '(') {
+        stack.push(')');
+      } else if (c == '{') {
+        stack.push('}');
+      } else if (c == '[') {
+        stack.push(']');
+
+//First, we check if the stack is empty using stack.isEmpty(). If the stack is empty, it means there is no corresponding opening bracket for this closing bracket, so we return false.
+//If the stack is not empty, we pop the top element from the stack using stack.pop(). If this element is not equal to c, it means the brackets are not matching correctly, so we return false.
+      } else if (stack.isEmpty() || stack.pop() != c) {
+        return false;
+      }
+    }
+
+//After processing all characters in the string, we check if the stack is empty. If the stack is empty, it means all opening brackets had corresponding 
+//closing brackets in the correct order, so we return true. If the stack is not empty, it means there are unmatched opening brackets, so we return false.
+    return stack.isEmpty();
+  }
+}
