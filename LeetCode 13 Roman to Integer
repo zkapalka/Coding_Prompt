@@ -1,0 +1,37 @@
+//URL: https://leetcode.com/problems/roman-to-integer/
+
+//SOLUTION
+
+class Solution {
+  public int romanToInt(String s) {
+
+//set up ans variable to store the final sum
+    int ans = 0;
+
+//Set up array to map Roman numeral to integer value, 128 is picked to accommodate the ASCII values of Roman characters
+    int[] roman = new int[128];
+
+//Mapping the array
+    roman['I'] = 1;
+    roman['V'] = 5;
+    roman['X'] = 10;
+    roman['L'] = 50;
+    roman['C'] = 100;
+    roman['D'] = 500;
+    roman['M'] = 1000;
+
+
+//This serves as the conversion logic for mapping the array
+    for (int i = 0; i + 1 < s.length(); ++i)
+
+//This allows us to subtract if the roman is IV or IX. It will look at the current index and compare the next index
+      if (roman[s.charAt(i)] < roman[s.charAt(i + 1)])
+        ans -= roman[s.charAt(i)];
+      else
+        ans += roman[s.charAt(i)];
+
+//After the loop, the method adds the value of the last character in the string to ans. This is because the loop does not include the last character in its iterations.
+
+    return ans + roman[s.charAt(s.length() - 1)];
+  }
+}
