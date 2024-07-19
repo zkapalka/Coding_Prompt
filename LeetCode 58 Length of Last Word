@@ -1,0 +1,47 @@
+URL: https://leetcode.com/problems/length-of-last-word/
+
+//MY SOLUTION: 
+
+class Solution {
+    public int lengthOfLastWord(String s) {
+       
+// To handle any cases of empty string
+        if (s == null || s.isEmpty()){
+            return 0;
+        }
+
+//Split up string into array
+        String[] wordArray = s.split(" ");
+
+//Store last element of array into its own variable
+        String lastWordLength = wordArray[wordArray.length - 1];
+
+//return last word's length
+        return lastWordLength.length();
+        
+    }
+}
+
+//OPTIMIZED SOLUTION
+
+class Solution {
+  public int lengthOfLastWord(String s) {
+
+// Set i to match length of string
+    int i = s.length() - 1;
+
+//Allows you to handle all cases with trailing blank spaces, for example, if the whole string is 12, but there are two blanks, it will change i from 12 to 10
+    while (i >= 0 && s.charAt(i) == ' ')
+      --i;
+
+//Create a reference to hold on value of i before it is modified
+    final int lastIndex = i;
+
+//Go back on the string and counts downard until it hits a blank space and subtracting from i the whole time
+    while (i >= 0 && s.charAt(i) != ' ')
+      --i;
+
+// Return original i and new i
+    return lastIndex - i;
+  }
+}
