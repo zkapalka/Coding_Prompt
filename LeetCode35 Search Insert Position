@@ -3,20 +3,30 @@
 //SOLUTION
 class Solution {
     public int searchInsert(int[] nums, int target) {
+// Set up your pointers
         int left = 0;
         int right = nums.length - 1;
 
+// A while loop that goes on until right is less than left
         while (left <= right) {
+
+// calcuated as the mid index and help prevent overflow
             int mid = left + (right - left) / 2;
 
+// if mid is equal to target, return it
             if (nums[mid] == target) {
                 return mid;
+// Otherwise, if it is less than target, increase left pointer by one
             } else if (nums[mid] < target) {
                 left = mid + 1;
+//If none of the criteria matches above, decrease right pointer
             } else {
                 right = mid - 1;
             }
         }
+
+//If nothing is found, loop will exit when lefter is bigger than right
+//At this point, left will be index wheret he target should be put to maintain the sorted order
 
         return left;
         
