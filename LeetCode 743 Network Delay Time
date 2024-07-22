@@ -1,0 +1,71 @@
+//URL: https://leetcode.com/problems/network-delay-time/
+
+//Solution: 
+//This Java code solves the problem of finding the time it takes for all nodes in a network to receive a signal sent from a starting node using Dijkstra's algorithm. Let's break down the code step by step.
+
+class Solution {
+// public method that takes 3 parameters, times: a 2D array where each element times[i] = [u, v, w] represents a directed edge from node u to node v with a travel time w.
+// n: # of nodes in the network
+// k: starting node
+  public int networkDelayTime(int[][] times, int n, int k) {
+
+//Graph is showend as an adjaceny list
+//graph is an arary of list in where each list have pairs showing edges and weights
+// first loop starts each list in the graph
+//second loop populates the graph with the given edges from the times array, converting 1 indexed nodes to 0-indexed for internal processing
+    List<Pair<Integer, Integer>>[] graph = new List[n];
+
+    for (int i = 0; i < n; i++)
+      graph[i] = new ArrayList<>();
+
+    for (int[] time : times) {
+      final int u = time[0] - 1;
+      final int v = time[1] - 1;
+      final int w = time[2];
+      graph[u].add(new Pair<>(v, w));
+    }
+
+//Calls the dijkstra method with the graph and the source node (converted to 0-indexed).
+    return dijkstra(graph, k - 1);
+  }
+
+// Creating a new method using Dijkstra's method
+// Initializes dist array to hold the shortest distance to each node, initially set to Integer.MAX_VALUE.
+// Initializes a min-heap priority queue to process nodes based on their current shortest distance.
+// Sets the distance to the source node to 0 and adds it to the min-heap.
+  private int dijkstra(List<Pair<Integer, Integer>>[] graph, int src) {
+    int[] dist = new int[graph.length];
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    // (d, u)
+    Queue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>(Comparator.comparing(Pair::getKey));
+
+    dist[src] = 0;
+    minHeap.offer(new Pair<>(dist[src], src));
+
+
+//Process nodes until the min heap is empty
+// PUlls the node u wit the smallest distance, d
+// If d is bigger than the known distnace, it skips processing to avoid stale entries
+// For each veighbor v of node u, it checks if the path thru u provider a swhorter distance, if it does, it updates the dsitance and adds the neighbors to the min heap
+    while (!minHeap.isEmpty()) {
+      final int d = minHeap.peek().getKey();
+      final int u = minHeap.poll().getValue();
+      if (d > dist[u])
+        continue;
+      for (Pair<Integer, Integer> pair : graph[u]) {
+        final int v = pair.getKey();
+        final int w = pair.getValue();
+        if (d + w < dist[v]) {
+          dist[v] = d + w;
+          minHeap.offer(new Pair<>(dist[v], v));
+        }
+      }
+    }
+
+//Find the max distance among all nodes
+//if the max distance is same as intger.max value, it means that not all node are reachable, so it returns -1, otherwise, it returns the max distance which is the time it takes for all nodes to receive the signal
+
+    final int maxDist = Arrays.stream(dist).max().getAsInt();
+    return maxDist == Integer.MAX_VALUE ? -1 : maxDist;
+  }
+}
