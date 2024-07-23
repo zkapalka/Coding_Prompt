@@ -1,0 +1,79 @@
+//URL: https://leetcode.com/problems/add-binary/description/
+
+//Solution
+public class BinaryAddition {
+    public static String addBinary(String a, String b) {
+        // StringBuilder to construct the result string
+        StringBuilder result = new StringBuilder();
+
+        // Pointers to the last character of each string
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+
+        // Variable to store the carry
+        int carry = 0;
+
+        // Loop through both strings from the end to the beginning
+        while (i >= 0 || j >= 0) {
+            // Sum the carry and the current digits (if available)
+            int sum = carry;
+            if (i >= 0) {
+                sum += a.charAt(i) - '0'; // Convert char to int
+                i--;
+            }
+            if (j >= 0) {
+                sum += b.charAt(j) - '0'; // Convert char to int
+                j--;
+            }
+
+            // Append the least significant bit of the sum (sum % 2)
+            result.append(sum % 2);
+
+            // Calculate the new carry (sum / 2)
+            carry = sum / 2;
+        }
+
+        // If there's a carry left, append it
+        if (carry != 0) {
+            result.append(carry);
+        }
+
+        // The result is constructed in reverse order, so reverse it
+        return result.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        // Test the addBinary method
+        String a = "11";
+        String b = "1";
+        System.out.println("Sum: " + addBinary(a, b));  // Output: 100
+    }
+}
+
+
+OR 
+
+public class BinaryAddition {
+    public static String addBinary(String a, String b) {
+        // Parse the binary strings into integers
+        int num1 = Integer.parseInt(a, 2);
+        int num2 = Integer.parseInt(b, 2);
+
+        // Add the two integers
+        int sum = num1 + num2;
+
+        // Convert the sum back to a binary string
+        return Integer.toBinaryString(sum);
+    }
+
+    public static void main(String[] args) {
+        // Test the addBinary method
+        String a = "11";
+        String b = "1";
+        System.out.println("Sum: " + addBinary(a, b));  // Output: 100
+    }
+}
+
+
+This is a complex one because binary cannot be explicitly added like numbers can, you have to convert the binary strings into numbers, and then add those numbers and then convert it back into binary. The first solution is manual while
+the second solution leverages built-in Java methods
