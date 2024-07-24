@@ -1,0 +1,18 @@
+//URL: https://leetcode.com/problems/sqrtx/description/
+
+//SOLUTION:
+class Solution {
+    public int mySqrt(int x) {
+        // to guard against any negative numbers, we can also update it to protect against 1 as well
+        if (x < 0) {
+            throw new IllegalArgumentException("Cannot compute the square root of a negative number.");
+        }
+        //use the built-in method to get square root
+        double result = Math.sqrt(x);
+
+        //We use the math floor built in method to specifically round down, and we have to be explicit with the type-casting otherwise, it will return an error about loosey conversion
+        int roundedDownResult = (int) Math.floor(result);
+        return roundedDownResult;
+        
+    }
+}
