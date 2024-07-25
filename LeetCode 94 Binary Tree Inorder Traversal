@@ -1,0 +1,33 @@
+//URL: https://leetcode.com/problems/binary-tree-inorder-traversal/description/
+
+//SOLUTION: 
+class Solution {
+
+  public List<Integer> inorderTraversal(TreeNode root) {
+    // List to store the in-order traversal result
+    List<Integer> ans = new ArrayList<>();
+    // Stack to simulate the recursion stack
+    Deque<TreeNode> stack = new ArrayDeque<>();
+
+    // Continue the process as long as there are nodes to be processed
+    while (root != null || !stack.isEmpty()) {
+      // Reach the leftmost node of the current node
+      while (root != null) {
+        // Push the node to the stack before moving to its left child
+        stack.push(root);
+        root = root.left;
+      }
+      
+      // Pop the node from the stack, this is the node with no left child (or left child has already been processed)
+      root = stack.pop();
+      // Add the node value to the result list (in-order position)
+      ans.add(root.val);
+      
+      // Move to the right subtree of the node
+      root = root.right;
+    }
+
+    // Return the result list containing the in-order traversal
+    return ans;
+  }
+}
