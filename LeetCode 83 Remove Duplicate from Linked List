@@ -1,0 +1,37 @@
+//URL: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+
+//SOLUTION;
+
+class Solution {
+  // Method to delete duplicates from a sorted linked list
+  public ListNode deleteDuplicates(ListNode head) {
+    // Pointer to traverse the linked list
+    ListNode curr = head;
+
+    // Traverse the linked list until the end
+    while (curr != null) {
+      // Check if the current node has a next node and if the current node's value is the same as the next node's value
+      while (curr.next != null && curr.val == curr.next.val)
+        // Skip the next node by pointing to the node after the next node
+        curr.next = curr.next.next;
+
+      // Move the pointer to the next node
+      curr = curr.next;
+    }
+
+    // Return the head of the modified linked list
+    return head;
+  }
+}
+
+// Definition for singly-linked list.
+class ListNode {
+  int val;       // Value of the node
+  ListNode next; // Reference to the next node in the list
+
+  // Constructor to create a new node with a given value
+  ListNode(int val) {
+    this.val = val;
+    this.next = null;
+  }
+}
