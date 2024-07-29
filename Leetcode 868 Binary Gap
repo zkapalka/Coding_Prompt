@@ -1,0 +1,31 @@
+//URL: https://leetcode.com/problems/binary-gap/
+
+//SOLUTION:
+
+  public int binaryGap(int n) {
+        // Convert int into binary string
+        String binaryString = Integer.toBinaryString(n);
+        int lastPosition = -1; // Track the last position of '1'
+        int maxDistance = 0; // Track the maximum distance between consecutive '1's
+
+        // Loop through each character in the binary string
+        for (int i = 0; i < binaryString.length(); i++) {
+            char currentChar = binaryString.charAt(i); // Get the character at the current position
+
+            // Check if the character is '1'
+            if (currentChar == '1') {
+                // If this is not the first '1' encountered
+                if (lastPosition != -1) {
+                    // Calculate the distance between the current '1' and the last '1'
+                    int distance = i - lastPosition;
+                    // Update the maximum distance if the current distance is greater
+                    maxDistance = Math.max(maxDistance, distance);
+                }
+                // Update the last position of '1'
+                lastPosition = i;
+            }
+        }
+
+        // Return the maximum distance, or 0 if there's only one '1'
+        return maxDistance;
+    }
