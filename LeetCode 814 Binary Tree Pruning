@@ -1,0 +1,32 @@
+//URL: https://leetcode.com/problems/binary-tree-pruning/description/
+
+//SOLUTION:
+
+// Definition for a binary tree node
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
+
+class Solution {
+    // Method to prune the binary tree
+    public TreeNode pruneTree(TreeNode root) {
+        // Base case: if the current node is null, return null
+        if (root == null) return null;
+
+        // Recursively prune the left and right subtrees
+        root.left = pruneTree(root.left);
+        root.right = pruneTree(root.right);
+
+        // If the current node's value is 0 and it has no children,
+        // return null to prune it
+        if (root.val == 0 && root.left == null && root.right == null) {
+            return null;
+        }
+
+        // Return the current node after potentially pruning its subtrees
+        return root;
+    }
+}
