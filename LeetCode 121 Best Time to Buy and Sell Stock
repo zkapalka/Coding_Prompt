@@ -1,0 +1,34 @@
+//URL: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+//SOLUTION:
+
+class Solution {
+public int maxProfit(int[] prices) {
+    // Check if the prices array is null or empty, if so, return 0 as no profit can be made
+    if (prices == null || prices.length == 0) {
+        return 0;
+    }
+    
+    // Initialize min_buy to the first price in the array
+    // This represents the minimum price to buy the stock
+    int min_buy = prices[0];
+    
+    // Initialize profit to 0 as initially no profit is made
+    int profit = 0;
+    
+    // Iterate through the prices array starting from the second element
+    for (int i = 1; i < prices.length; i++) {
+        // Update min_buy to the minimum value between the current min_buy and the current price
+        // This keeps track of the lowest price to buy the stock so far
+        min_buy = Math.min(min_buy, prices[i]);
+        
+        // Calculate the profit by subtracting min_buy from the current price
+        // Update profit to the maximum value between the current profit and the calculated profit
+        // This keeps track of the maximum profit that can be made so far
+        profit = Math.max(profit, prices[i] - min_buy);
+    }
+    
+    // Return the maximum profit that can be made
+    return profit;
+}
+}
