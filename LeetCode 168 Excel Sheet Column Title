@@ -1,0 +1,14 @@
+//URL: https://leetcode.com/problems/excel-sheet-column-title/description/
+
+//SOLUTION: 
+
+class Solution {
+  public String convertToTitle(int n) {
+    // Base case: If n is 0, return an empty string
+    return n == 0 ? "" : 
+      // Recursive call: Convert the adjusted number (n - 1) / 26 to the next part of the title
+      convertToTitle((n - 1) / 26) + 
+      // Add the current character based on the remainder (n - 1) % 26
+      (char) ('A' + ((n - 1) % 26));
+  }
+}
