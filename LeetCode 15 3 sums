@@ -1,0 +1,61 @@
+//URL: https://leetcode.com/problems/3sum/?envType=list&envId=oizxjoit
+
+//SOLUTION: 
+
+class Solution {
+    public List<List<Integer>> findTripletsThatSumToZero(int[] nums) {
+        // If there are less than 3 numbers, it's impossible to find a triplet.
+        if (nums.length < 3)
+            return new ArrayList<>();
+
+        // This will store the list of triplets that sum to zero.
+        List<List<Integer>> resultTriplets = new ArrayList<>();
+
+        // Sort the array to make it easier to avoid duplicates and use the two-pointer technique.
+        Arrays.sort(nums);
+
+        // Iterate through the array, treating each number as a potential first element of a triplet.
+        for (int i = 0; i + 2 < nums.length; ++i) {
+            // Skip duplicate numbers to avoid repeating the same triplet.
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+
+            // Initialize two pointers: 
+            // - leftPointer starts just after the current element.
+            // - rightPointer starts at the end of the array.
+            int leftPointer = i + 1;
+            int rightPointer = nums.length - 1;
+
+            // Use the two-pointer technique to find pairs that sum with nums[i] to zero.
+            while (leftPointer < rightPointer) {
+                // Calculate the sum of the current triplet.
+                final int currentSum = nums[i] + nums[leftPointer] + nums[rightPointer];
+
+                if (currentSum == 0) {
+                    // If the sum is zero, we found a valid triplet.
+                    resultTriplets.add(Arrays.asList(nums[i], nums[leftPointer], nums[rightPointer]));
+
+                    // Move the leftPointer to the right and the rightPointer to the left to explore other possibilities.
+                    leftPointer++;
+                    rightPointer--;
+
+                    // Skip duplicate numbers to avoid repeating the same triplet.
+                    while (leftPointer < rightPointer && nums[leftPointer] == nums[leftPointer - 1])
+                        leftPointer++;
+                    while (leftPointer < rightPointer && nums[rightPointer] == nums[rightPointer + 1])
+                        rightPointer--;
+
+                } else if (currentSum < 0) {
+                    // If the sum is less than zero, move the leftPointer to the right to increase the sum.
+                    leftPointer++;
+                } else {
+                    // If the sum is greater than zero, move the rightPointer to the left to decrease the sum.
+                    rightPointer--;
+                }
+            }
+        }
+
+        // Return the list of triplets that sum to zero.
+        return resultTriplets;
+    }
+}
