@@ -1,0 +1,18 @@
+//URL: https://leetcode.com/problems/missing-number/submissions/1372569450/?envType=problem-list-v2&envId=oizxjoit
+
+//SOLUTION: class Solution {
+    public int missingNumber(int[] nums) {
+        // don't count 0 as part of length
+        // not sorted
+        // unique numbers
+        // we can do a for loop to check
+    int ans = nums.length; // Initialize ans to the length of the array (n)
+
+    // Iterate through each number in the array
+    for (int i = 0; i < nums.length; ++i)
+      ans ^= i ^ nums[i]; // XOR ans with the current index and the value at the current index
+
+    return ans; // Return the missing number
+  }
+
+}
