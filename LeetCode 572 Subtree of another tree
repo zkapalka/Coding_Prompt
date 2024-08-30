@@ -1,0 +1,25 @@
+class Solution {
+  // Main function to check if tree 't' is a subtree of tree 's'
+  public boolean isSubtree(TreeNode s, TreeNode t) {
+    // If tree 's' is null, then it can't have any subtree
+    if (s == null)
+      return false;
+
+    // If tree 's' and tree 't' are identical, then 't' is a subtree of 's'
+    if (isSameTree(s, t))
+      return true;
+
+    // Recursively check if 't' is a subtree of the left or right subtree of 's'
+    return isSubtree(s.left, t) || isSubtree(s.right, t);
+  }
+
+  // Helper function to check if two trees 'p' and 'q' are identical
+  private boolean isSameTree(TreeNode p, TreeNode q) {
+    // If either 'p' or 'q' is null, they are the same only if both are null
+    if (p == null || q == null)
+      return p == q;
+
+    // Check if the current nodes have the same value and if their left and right subtrees are identical
+    return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+  }
+}
