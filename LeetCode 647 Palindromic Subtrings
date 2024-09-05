@@ -1,0 +1,35 @@
+//URL: https://leetcode.com/problems/palindromic-substrings/description/?envType=problem-list-v2&envId=oizxjoit
+
+//Solution: 
+
+class Solution {
+  // Main method to count the number of palindromic substrings
+  public int countSubstrings(String s) {
+    int ans = 0;
+
+    // Loop through each character in the string
+    for (int i = 0; i < s.length(); ++i) {
+      // Try to find odd-length palindromes centered at each character
+      ans += extendPalindromes(s, i, i);
+
+      // Try to find even-length palindromes centered between two characters
+      ans += extendPalindromes(s, i, i + 1);
+    }
+
+    return ans; // Return the total count of palindromic substrings
+  }
+
+  // Helper method to extend palindromes from the center (l, r)
+  private int extendPalindromes(final String s, int l, int r) {
+    int count = 0;
+
+    // Expand outwards as long as the characters are equal and within bounds
+    while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+      ++count;  // Every time a palindrome is found, increment the count
+      --l;      // Move left pointer outward
+      ++r;      // Move right pointer outward
+    }
+
+    return count; // Return the count of palindromes found for this center
+  }
+}
